@@ -1,0 +1,10 @@
+<h1>Add a cd to <%= @artist.name() %> </h1>
+
+<form action="/new" method="post">
+  <input id='artist_id' name='artist_id' type='hidden' value='<%= @artist.id() %>'>
+
+  <label for='album'>Album:</label>
+  <input id='album' name='album' type='text'>
+
+  <button type="submit">Add Album</button>
+</form>

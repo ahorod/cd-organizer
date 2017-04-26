@@ -1,0 +1,10 @@
+<h3>Here are all the albums from this artist:</h3>
+
+<ul>
+  <% @artist.cd().each() do |album| %>
+    <li><%= album.album() %></li>
+  <% end %>
+</ul>
+
+<a href="/artists/<%= @artist.id%>/cds/new">Add a new album</a>
+<a href="/">Return to Main Page</a>

@@ -1,0 +1,8 @@
+<h1>Albums</h1>
+
+<h3>Here are the albums from this artist: </h3>
+<ul>
+  <% @cds.each() do |album| %>
+    <li><a href="/cds/<%= cd.id() %>"></a></li>
+  <% end %>
+</ul>

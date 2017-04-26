@@ -1,60 +1,59 @@
 require('sinatra')
 require('sinatra/reloader')
 also_reload('lib/**/*.rb')
-require('./lib/vehicle')
-require('./lib/dealership')
+require('./lib/cd')
+require('./lib/artist')
 
 get('/') do
   erb(:index)
 end
 
-get('/dealerships/new') do
-   erb(:dealerships_form)
+get('/artists/new') do
+   erb(:artist_form)
 end
 
-get('/dealerships') do
-  @dealerships = Dealership.all()
-  erb(:dealerships)
+get('/artists') do
+  @artists = Artist.all()
+  erb(:artists)
 end
 
-post('/dealerships') do
+post('/artists') do
   name = params.fetch('name')
-  Dealership.new(name).save()
-  @dealerships = Dealership.all()
+  Artist.new(name).save()
+  @artists = Artist.all()
   erb(:success)
 end
 
-get('/vehicles/:id') do
-  @vehicle = Vehicle.find(params.fetch('id').to_i())
-  erb(:vehicle)
+get('/cds/:id') do
+  @album = Album.find(params.fetch('id').to_i())
+  erb(:album)
 end
 
-get('/dealerships/:id') do
-  @dealership = Dealership.find(params.fetch('id').to_i())
-  erb(:dealership)
+get('/artists/:id') do
+  @artist = Artist.find(params.fetch('id').to_i())
+  erb(:artist)
 end
 
-get('/dealerships/:id/vehicles/new') do
-    @dealership = Dealership.find(params.fetch('id').to_i())
-    erb(:dealership_vehicles_form)
+get('/artists/:id/cds/new') do
+    @artist = Artist.find(params.fetch('id').to_i())
+    erb(:artist_cd_form)
 end
 
 post('/new') do
-  make = params.fetch('make')
-  model = params.fetch('model')
-  year = params.fetch('year')
-  @vehicle = Vehicle.new(make, model, year)
-  @vehicle.save()
-  @dealership = Dealership.find(params.fetch('dealership_id').to_i())
-  @dealership.add_vehicle(@vehicle)
+  album = params.fetch('album')
+
+  @album = Album.new(album)
+  @album.save()
+  @artist = Artist.find(params.fetch('artist_id').to_i())
+  @artist.add_album(@album)
   erb(:success)
 end
 
-get('/vehicles/') do
-  @vehicles = Vehicle.all()
-  erb(:vehicles)
+get('/cds/') do
+  @cds = Album.all()
+  erb(:cds)
 end
 
-get('/dealership_vehicles_form/new') do
-  erb(:dealership_vehicles_form)
+get('/artist_cds_form/new') do
+  erb(:artist_cd_form)
 end
